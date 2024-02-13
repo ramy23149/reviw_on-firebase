@@ -1,4 +1,5 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class Homepage extends StatefulWidget {
@@ -18,7 +19,7 @@ class _HomepageState extends State<Homepage> {
           actions: [
             IconButton(
                 onPressed: () async {
-                  // await FirebaseAuth.instance.signOut();
+                   await FirebaseAuth.instance.signOut();
                   Navigator.of(context).pushReplacementNamed('login');
                 },
                 icon: const Icon(Icons.exit_to_app))

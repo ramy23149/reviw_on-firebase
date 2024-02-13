@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "151606860503",
+    "project_id": "reviwe-on-firebase",
+    "storage_bucket": "reviwe-on-firebase.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:151606860503:android:af37124264cf5f972f6e92",
+        "android_client_info": {
+          "package_name": "com.example.market_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA-yVHXnrd5l0889hmkQseUQZr0E3L4wWs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

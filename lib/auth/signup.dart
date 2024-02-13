@@ -1,3 +1,5 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:market_app/components/custom_form_textField.dart';
 import 'package:market_app/components/custombuttonauth.dart';
@@ -78,38 +80,38 @@ class _SignUpState extends State<SignUp> {
               title: "SignUp",
               onPressed: () async {
                 if (formKey.currentState!.validate()) {
-                  // try {
-                  //   final credential = await FirebaseAuth.instance
-                  //       .createUserWithEmailAndPassword(
-                  //     email: email.text,
-                  //     password: password.text,
-                  //   );
-                  //   Navigator.of(context).pushReplacementNamed('login');
-                  // } on FirebaseAuthException catch (e) {
-                  //   if (e.code == 'weak-password') {
-                  //     print('The password provided is too weak.');
-                  //     // ignore: use_build_context_synchronously
-                  //     AwesomeDialog(
-                  //       context: context,
-                  //       dialogType: DialogType.error,
-                  //       animType: AnimType.rightSlide,
-                  //       title: 'Error',
-                  //       desc: 'The password provided is too weak',
-                  //     ).show();
-                  //   } else if (e.code == e.code) {
-                  //     print('The account already exists for that email.');
-                  //     // ignore: use_build_context_synchronously
-                  //     AwesomeDialog(
-                  //       context: context,
-                  //       dialogType: DialogType.error,
-                  //       animType: AnimType.rightSlide,
-                  //       title: 'Error',
-                  //       desc: 'The account already exists for that email',
-                  //     ).show();
-                  //   }
-                  // } catch (e) {
-                  //   print(e);
-                  // }
+                  try {
+                    final credential = await FirebaseAuth.instance
+                        .createUserWithEmailAndPassword(
+                      email: email.text,
+                      password: password.text,
+                    );
+                    Navigator.of(context).pushReplacementNamed('login');
+                  } on FirebaseAuthException catch (e) {
+                    if (e.code == 'weak-password') {
+                      print('The password provided is too weak.');
+                      // ignore: use_build_context_synchronously
+                      AwesomeDialog(
+                        context: context,
+                        dialogType: DialogType.error,
+                        animType: AnimType.rightSlide,
+                        title: 'Error',
+                        desc: 'The password provided is too weak',
+                      ).show();
+                    } else if (e.code == e.code) {
+                      print('The account already exists for that email.');
+                      // ignore: use_build_context_synchronously
+                      AwesomeDialog(
+                        context: context,
+                        dialogType: DialogType.error,
+                        animType: AnimType.rightSlide,
+                        title: 'Error',
+                        desc: 'The account already exists for that email',
+                      ).show();
+                    }
+                  } catch (e) {
+                    print(e);
+                  }
                 }
               }),
           Container(height: 20),
