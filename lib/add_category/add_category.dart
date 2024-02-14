@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:market_app/components/custom_form_textField.dart';
 
@@ -11,6 +12,22 @@ class AddCategoryPage extends StatefulWidget {
 class _AddCategoryPageState extends State<AddCategoryPage> {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   TextEditingController name = TextEditingController();
+  CollectionReference categoris =
+      FirebaseFirestore.instance.collection('categoris');
+
+  Future<void> addCategory() async {
+    if (formKey.currentState!.validate()) {
+      try {
+    DocumentReference response =    await categoris.add({
+          'name': name.text,
+        });
+        Navigator.of(context).pushReplacementNamed('HomePage');
+      } catch (e) {
+        print(e);
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,30 +51,7 @@ class _AddCategoryPageState extends State<AddCategoryPage> {
                   }
                 },
               ),
-              // TextFormField(
-              //   validator: (value) {
-              //     if (value!.isEmpty) {
-              //       return 'value is required';
-              //     }
-              //   },
-              //   decoration: InputDecoration(
-              //     hintText: 'add note',
-              //     hintStyle: const TextStyle(fontSize: 14, color: Colors.grey),
-              //     contentPadding:
-              //         const EdgeInsets.symmetric(vertical: 2, horizontal: 20),
-              //     filled: true,
-              //     fillColor: Colors.grey[200],
-              //     border: OutlineInputBorder(
-              //         borderRadius: BorderRadius.circular(50),
-              //         borderSide: const BorderSide(
-              //             color: Color.fromARGB(255, 184, 184, 184))),
-              //     enabledBorder: OutlineInputBorder(
-              //       borderRadius: BorderRadius.circular(50),
-              //       borderSide: const BorderSide(color: Colors.grey),
-              //     ),
-              //   ),
-              // ),
-              SizedBox(
+              const SizedBox(
                 height: 32,
               ),
               MaterialButton(
@@ -66,7 +60,10 @@ class _AddCategoryPageState extends State<AddCategoryPage> {
                     borderRadius: BorderRadius.circular(20)),
                 color: Colors.orange,
                 textColor: Colors.white,
-                onPressed: () {},
+                onPressed: () {
+                  addCategory();
+                  name.clear();
+                },
                 child: const Text('Add'),
               )
             ],
