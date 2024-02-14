@@ -38,8 +38,14 @@ FirebaseAuth.instance
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(
+        appBarTheme: AppBarTheme(backgroundColor: Colors.grey[50],
+        titleTextStyle: TextStyle(fontSize: 32,fontWeight: FontWeight.bold,color: Colors.orange),
+       iconTheme: IconThemeData(color: Colors.orange,size: 32)
+        )
+      ),
       debugShowCheckedModeBanner: false,
-      home:  (FirebaseAuth.instance.currentUser!=null &&FirebaseAuth.instance.currentUser!.emailVerified) ? Homepage():
+      home:  (FirebaseAuth.instance.currentUser!=null && FirebaseAuth.instance.currentUser!.emailVerified) ? Homepage():
           Login(),
       routes: {
         "signup": (context) => SignUp(),
