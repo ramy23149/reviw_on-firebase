@@ -61,6 +61,11 @@ class _LoginState extends State<Login> {
                 ),
                 Container(height: 10),
                 CustomTextForm(
+                  validator:  (value) {
+        if (value!.isEmpty) {
+          return 'value is required';
+        }
+      },
                     hinttext: "ُEnter Your Email", mycontroller: email),
                 Container(height: 10),
                 const Text(
@@ -69,6 +74,11 @@ class _LoginState extends State<Login> {
                 ),
                 Container(height: 10),
                 CustomTextForm(
+                  validator:  (value) {
+        if (value!.isEmpty) {
+          return 'value is required';
+        }
+      },
                     hinttext: "ُEnter Your Password", mycontroller: password),
                 InkWell(
                   onTap: () async {

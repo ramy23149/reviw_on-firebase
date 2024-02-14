@@ -46,6 +46,11 @@ class _SignUpState extends State<SignUp> {
                 ),
                 Container(height: 10),
                 CustomTextForm(
+                  validator:  (value) {
+        if (value!.isEmpty) {
+          return 'value is required';
+        }
+      },
                     hinttext: "ُEnter Your username", mycontroller: username),
                 Container(height: 20),
                 const Text(
@@ -54,6 +59,11 @@ class _SignUpState extends State<SignUp> {
                 ),
                 Container(height: 10),
                 CustomTextForm(
+                  validator:  (value) {
+        if (value!.isEmpty) {
+          return 'value is required';
+        }
+      },
                     hinttext: "ُEnter Your Email", mycontroller: email),
                 Container(height: 10),
                 const Text(
@@ -62,6 +72,11 @@ class _SignUpState extends State<SignUp> {
                 ),
                 Container(height: 10),
                 CustomTextForm(
+                  validator:  (value) {
+        if (value!.isEmpty) {
+          return 'value is required';
+        }
+      },
                     hinttext: "ُEnter Your Password", mycontroller: password),
                 Container(
                   margin: const EdgeInsets.only(top: 10, bottom: 20),

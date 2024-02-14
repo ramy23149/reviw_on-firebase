@@ -3,25 +3,14 @@ import 'package:flutter/material.dart';
 class CustomTextForm extends StatelessWidget {
   final String hinttext;
   final TextEditingController mycontroller;
-
+  final String? Function(String?)? validator;
   const CustomTextForm(
-      {super.key, required this.hinttext, required this.mycontroller});
+      {super.key, required this.hinttext, required this.mycontroller, this.validator});
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      validator: (value) {
-        if (value!.isEmpty) {
-          // AwesomeDialog(
-          //   context: context,
-          //   dialogType: DialogType.error,
-          //   animType: AnimType.rightSlide,
-          //   title: 'Error',
-          //   desc: 'value is required',
-          // ).show();
-          return'value is required';
-        }
-      },
+      validator:validator,
       controller: mycontroller,
       decoration: InputDecoration(
           hintText: hinttext,
