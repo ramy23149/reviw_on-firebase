@@ -35,6 +35,7 @@ dependencies:
   firebase_core: ^2.25.4
   flutter:
     sdk: flutter
+  modal_progress_hud_nsn: ^0.5.1
 
 dev_dependencies:
   flutter_lints: ^2.0.0
