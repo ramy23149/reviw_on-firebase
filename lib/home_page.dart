@@ -18,21 +18,19 @@ class _HomepageState extends State<Homepage> {
 
   @override
   void initState() {
-  
     getData();
-  
+
     super.initState();
   }
 
   Future<void> getData() async {
-    
     QuerySnapshot querySnapshot =
         await FirebaseFirestore.instance.collection('categoris').get();
     setState(() {
       //data = querySnapshot.docs;
       data.addAll(querySnapshot.docs);
-    });
       isLoading = false;
+    });
   }
 
   @override
@@ -50,31 +48,37 @@ class _HomepageState extends State<Homepage> {
                 icon: const Icon(Icons.exit_to_app))
           ],
         ),
-        body: isLoading ==true? const Center(child: CircularProgressIndicator()): Stack(
-          children: [
-            GridView.builder(
-              itemCount: data.length,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  childAspectRatio: 1.5,
-                  mainAxisExtent: 155),
-              itemBuilder: (context, index) {
-                return CustomCard(categoryName: '${data[index]['name']}');
-              },
-            ),
-            Positioned(
-              bottom: 10,
-              right: 10,
-              child: FloatingActionButton(
-                shape: const CircleBorder(),
-                backgroundColor: Colors.cyan,
-                onPressed: () {
-                  Navigator.of(context).pushNamed('AddCategoryPage');
-                },
-                child: const Icon(Icons.add),
-              ),
-            )
-          ],
-        ));
+        body: isLoading
+            ? const Center(child: CircularProgressIndicator())
+            : Stack(
+                children: [
+                  GridView.builder(
+                    itemCount: data.length,
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            childAspectRatio: 1.5,
+                            mainAxisExtent: 155),
+                    itemBuilder: (context, index) {
+                      return CustomCard(
+                          docId: data[index].id,
+                          categoryName: '${data[index]['name']}');
+                  
+                    },
+                  ),
+                  Positioned(
+                    bottom: 10,
+                    right: 10,
+                    child: FloatingActionButton(
+                      shape: const CircleBorder(),
+                      backgroundColor: Colors.cyan,
+                      onPressed: () {
+                        Navigator.of(context).pushNamed('AddCategoryPage');
+                      },
+                      child: const Icon(Icons.add),
+                    ),
+                  )
+                ],
+              ));
   }
 }
