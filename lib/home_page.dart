@@ -25,7 +25,7 @@ class _HomepageState extends State<Homepage> {
 
   Future<void> getData() async {
     QuerySnapshot querySnapshot =
-        await FirebaseFirestore.instance.collection('categoris').get();
+        await FirebaseFirestore.instance.collection('categoris').where('id',isEqualTo: FirebaseAuth.instance.currentUser!.uid).get();
     setState(() {
       //data = querySnapshot.docs;
       data.addAll(querySnapshot.docs);

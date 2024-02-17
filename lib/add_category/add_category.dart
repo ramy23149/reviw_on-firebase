@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:market_app/components/custom_form_textField.dart';
 
@@ -18,8 +19,9 @@ class _AddCategoryPageState extends State<AddCategoryPage> {
   Future<void> addCategory() async {
     if (formKey.currentState!.validate()) {
       try {
-    DocumentReference response =    await categoris.add({
+    DocumentReference response =await categoris.add({
           'name': name.text,
+          'id':FirebaseAuth.instance.currentUser!.uid
         });
         Navigator.of(context).pushReplacementNamed('HomePage');
       } catch (e) {
