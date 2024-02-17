@@ -36,7 +36,12 @@ class _AddCategoryPageState extends State<AddCategoryPage> {
       }
     }
   }
-
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    name.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     return ModalProgressHUD(

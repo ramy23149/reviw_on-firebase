@@ -6,7 +6,8 @@ import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 class UpdateCategoryPage extends StatefulWidget {
   const UpdateCategoryPage({
     super.key,
-    required this.docId, required this.oldName,
+    required this.docId,
+    required this.oldName,
   });
   final String docId;
   final String oldName;
@@ -27,7 +28,9 @@ class _UpdateCategoryPageState extends State<UpdateCategoryPage> {
       try {
         isLonading = true;
         setState(() {});
-        await categoris.doc(widget.docId).update({'name': name.text});
+        await categoris
+            .doc(widget.docId)
+            .set({'name': name.text}, SetOptions(merge: true));
         Navigator.of(context).pushNamedAndRemoveUntil(
           'HomePage',
           (route) => false,
@@ -36,6 +39,13 @@ class _UpdateCategoryPageState extends State<UpdateCategoryPage> {
         print(e);
       }
     }
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    name.dispose();
   }
 
   @override
