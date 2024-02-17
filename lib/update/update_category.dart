@@ -1,32 +1,33 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:market_app/components/custom_form_textField.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
-class AddCategoryPage extends StatefulWidget {
-  const AddCategoryPage({super.key});
-
+class UpdateCategoryPage extends StatefulWidget {
+  const UpdateCategoryPage({
+    super.key,
+    required this.docId, required this.oldName,
+  });
+  final String docId;
+  final String oldName;
+  static String id = 'UpdateCategoryPage';
   @override
-  State<AddCategoryPage> createState() => _AddCategoryPageState();
+  State<UpdateCategoryPage> createState() => _UpdateCategoryPageState();
 }
 
-class _AddCategoryPageState extends State<AddCategoryPage> {
+class _UpdateCategoryPageState extends State<UpdateCategoryPage> {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   TextEditingController name = TextEditingController();
   CollectionReference categoris =
       FirebaseFirestore.instance.collection('categoris');
   bool isLonading = false;
 
-  Future<void> addCategory() async {
+  Future<void> updateCategory() async {
     if (formKey.currentState!.validate()) {
       try {
         isLonading = true;
-       setState(() {
-         
-       });
-        DocumentReference response = await categoris.add(
-            {'name': name.text, 'id': FirebaseAuth.instance.currentUser!.uid});
+        setState(() {});
+        await categoris.doc(widget.docId).update({'name': name.text});
         Navigator.of(context).pushNamedAndRemoveUntil(
           'HomePage',
           (route) => false,
@@ -38,13 +39,19 @@ class _AddCategoryPageState extends State<AddCategoryPage> {
   }
 
   @override
+  void initState() {
+    name.text = widget.oldName;
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return ModalProgressHUD(
       inAsyncCall: isLonading,
       child: Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: true,
-          title: const Text('Add Note'),
+          title: const Text('Edit Note'),
           centerTitle: true,
         ),
         body: Padding(
@@ -72,10 +79,9 @@ class _AddCategoryPageState extends State<AddCategoryPage> {
                   color: Colors.orange,
                   textColor: Colors.white,
                   onPressed: () {
-                    addCategory();
-                    name.clear();
+                    updateCategory();
                   },
-                  child: const Text('Add'),
+                  child: const Text('save'),
                 )
               ],
             ),

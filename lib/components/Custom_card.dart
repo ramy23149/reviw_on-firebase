@@ -1,6 +1,7 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:market_app/update/update_category.dart';
 
 class CustomCard extends StatelessWidget {
   const CustomCard(
@@ -11,6 +12,12 @@ class CustomCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
+      onTap: () {
+         Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context) => UpdateCategoryPage(docId: docId,oldName: categoryName,)),
+  );
+      },
       onLongPress: () {
         AwesomeDialog(
           context: context,
