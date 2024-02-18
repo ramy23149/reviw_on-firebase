@@ -101,6 +101,7 @@ class _UpdateCategoryPageState extends State<UpdateCategoryPage> {
                 const SizedBox(
                   height: 32,
                 ),
+                // StickyNotes(docId: widget.docId),
                 MaterialButton(
                   height: 40,
                   shape: RoundedRectangleBorder(

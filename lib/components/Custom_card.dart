@@ -1,31 +1,34 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:market_app/note/view.dart';
 import 'package:market_app/update/update_category.dart';
 
 class CustomCard extends StatelessWidget {
   const CustomCard(
-      {super.key, required this.categoryName, required this.docId,required this.oldSubject});
+      {super.key, required this.categoryName, required this.docId, this.oldSubject, this.imageUrl});
   final String categoryName;
   final String docId;
   final dynamic oldSubject;
+  final String? imageUrl;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-         Navigator.push(
+        Navigator.push(
     context,
-    MaterialPageRoute(builder: (context) => UpdateCategoryPage(docId: docId,oldName: categoryName,oldSubject: oldSubject,)),
+    MaterialPageRoute(builder: (context) => NoteView(docId: docId)),
   );
       },
       onLongPress: () {
         AwesomeDialog(
+          btnCancelText: 'edit',
           context: context,
           dialogType: DialogType.warning,
           animType: AnimType.rightSlide,
           title: 'warning',
-          desc: 'are you sure to delete this note?',
+          desc: 'what do you want to do?',
           btnOkOnPress: () async {
             await FirebaseFirestore.instance
                 .collection('categoris')
@@ -33,7 +36,12 @@ class CustomCard extends StatelessWidget {
                 .delete();
             Navigator.of(context).pushReplacementNamed('HomePage');
           },
-          btnCancelOnPress: () {},
+          btnCancelOnPress: () {
+              Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context) => UpdateCategoryPage(docId: docId,oldName: categoryName,oldSubject: oldSubject,)),
+  );
+          },
         ).show();
       },
       child: Card(
