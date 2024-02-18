@@ -14,6 +14,7 @@ class AddCategoryPage extends StatefulWidget {
 class _AddCategoryPageState extends State<AddCategoryPage> {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   TextEditingController name = TextEditingController();
+  TextEditingController subject = TextEditingController();
   CollectionReference categoris =
       FirebaseFirestore.instance.collection('categoris');
   bool isLonading = false;
@@ -26,7 +27,7 @@ class _AddCategoryPageState extends State<AddCategoryPage> {
          
        });
         DocumentReference response = await categoris.add(
-            {'name': name.text, 'id': FirebaseAuth.instance.currentUser!.uid});
+            {'name': name.text, 'id': FirebaseAuth.instance.currentUser!.uid,'subject':subject.text});
         Navigator.of(context).pushNamedAndRemoveUntil(
           'HomePage',
           (route) => false,
@@ -41,6 +42,7 @@ class _AddCategoryPageState extends State<AddCategoryPage> {
     // TODO: implement dispose
     super.dispose();
     name.dispose();
+    subject.dispose();
   }
   @override
   Widget build(BuildContext context) {
@@ -59,6 +61,7 @@ class _AddCategoryPageState extends State<AddCategoryPage> {
             child: Column(
               children: [
                 CustomTextForm(
+                  lines: 1,
                   hinttext: 'Enter Name',
                   mycontroller: name,
                   validator: (value) {
@@ -66,6 +69,18 @@ class _AddCategoryPageState extends State<AddCategoryPage> {
                       return 'value is required';
                     }
                   },
+                ),const SizedBox(
+                  height: 20,
+                ),
+                  CustomTextForm(
+                  lines: 4,
+                  hinttext: 'subject',
+                  mycontroller: subject,
+                  // validator: (value) {
+                  //   if (value == '') {
+                  //     return 'value is required';
+                  //   }
+                  // },
                 ),
                 const SizedBox(
                   height: 32,

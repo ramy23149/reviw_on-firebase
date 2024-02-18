@@ -61,6 +61,7 @@ class _LoginState extends State<Login> {
                   ),
                   Container(height: 10),
                   CustomTextForm(
+                    lines: 1,
                       validator: (value) {
                         if (value!.isEmpty) {
                           return 'value is required';
@@ -74,7 +75,7 @@ class _LoginState extends State<Login> {
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                   ),
                   Container(height: 10),
-                  CustomTextForm(
+                  CustomTextForm(  lines: 1,
                       validator: (value) {
                         if (value!.isEmpty) {
                           return 'value is required';

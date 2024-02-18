@@ -61,6 +61,7 @@ class _HomepageState extends State<Homepage> {
                             mainAxisExtent: 155),
                     itemBuilder: (context, index) {
                       return CustomCard(
+                        oldSubject: data[index]['subject'],
                           docId: data[index].id,
                           categoryName: '${data[index]['name']}');
                   

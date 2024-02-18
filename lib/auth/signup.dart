@@ -45,7 +45,7 @@ class _SignUpState extends State<SignUp> {
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                 ),
                 Container(height: 10),
-                CustomTextForm(
+                CustomTextForm(  lines: 1,
                   validator:  (value) {
         if (value!.isEmpty) {
           return 'value is required';
@@ -58,7 +58,7 @@ class _SignUpState extends State<SignUp> {
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                 ),
                 Container(height: 10),
-                CustomTextForm(
+                CustomTextForm(  lines: 1,
                   validator:  (value) {
         if (value!.isEmpty) {
           return 'value is required';
@@ -71,7 +71,7 @@ class _SignUpState extends State<SignUp> {
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                 ),
                 Container(height: 10),
-                CustomTextForm(
+                CustomTextForm(  lines: 1,
                   validator:  (value) {
         if (value!.isEmpty) {
           return 'value is required';

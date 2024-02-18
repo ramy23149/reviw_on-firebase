@@ -5,9 +5,10 @@ import 'package:market_app/update/update_category.dart';
 
 class CustomCard extends StatelessWidget {
   const CustomCard(
-      {super.key, required this.categoryName, required this.docId});
+      {super.key, required this.categoryName, required this.docId,required this.oldSubject});
   final String categoryName;
   final String docId;
+  final dynamic oldSubject;
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +16,7 @@ class CustomCard extends StatelessWidget {
       onTap: () {
          Navigator.push(
     context,
-    MaterialPageRoute(builder: (context) => UpdateCategoryPage(docId: docId,oldName: categoryName,)),
+    MaterialPageRoute(builder: (context) => UpdateCategoryPage(docId: docId,oldName: categoryName,oldSubject: oldSubject,)),
   );
       },
       onLongPress: () {

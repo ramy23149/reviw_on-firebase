@@ -8,10 +8,12 @@ class UpdateCategoryPage extends StatefulWidget {
     super.key,
     required this.docId,
     required this.oldName,
+    required this.oldSubject,
   });
   final String docId;
   final String oldName;
-  static String id = 'UpdateCategoryPage';
+  final dynamic oldSubject;
+
   @override
   State<UpdateCategoryPage> createState() => _UpdateCategoryPageState();
 }
@@ -19,6 +21,7 @@ class UpdateCategoryPage extends StatefulWidget {
 class _UpdateCategoryPageState extends State<UpdateCategoryPage> {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   TextEditingController name = TextEditingController();
+  TextEditingController subject = TextEditingController();
   CollectionReference categoris =
       FirebaseFirestore.instance.collection('categoris');
   bool isLonading = false;
@@ -28,9 +31,9 @@ class _UpdateCategoryPageState extends State<UpdateCategoryPage> {
       try {
         isLonading = true;
         setState(() {});
-        await categoris
-            .doc(widget.docId)
-            .set({'name': name.text}, SetOptions(merge: true));
+        await categoris.doc(widget.docId).set(
+            {'name': name.text, 'subject': subject.text},
+            SetOptions(merge: true));
         Navigator.of(context).pushNamedAndRemoveUntil(
           'HomePage',
           (route) => false,
@@ -46,10 +49,12 @@ class _UpdateCategoryPageState extends State<UpdateCategoryPage> {
     // TODO: implement dispose
     super.dispose();
     name.dispose();
+    subject.dispose();
   }
 
   @override
   void initState() {
+    subject.text = widget.oldSubject;
     name.text = widget.oldName;
     super.initState();
   }
@@ -71,6 +76,7 @@ class _UpdateCategoryPageState extends State<UpdateCategoryPage> {
             child: Column(
               children: [
                 CustomTextForm(
+                  lines: 1,
                   hinttext: 'Enter Name',
                   mycontroller: name,
                   validator: (value) {
@@ -78,6 +84,19 @@ class _UpdateCategoryPageState extends State<UpdateCategoryPage> {
                       return 'value is required';
                     }
                   },
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                CustomTextForm(
+                  lines: 4,
+                  hinttext: 'subject',
+                  mycontroller: subject,
+                  // validator: (value) {
+                  //   if (value == '') {
+                  //     return 'value is required';
+                  //   }
+                  // },
                 ),
                 const SizedBox(
                   height: 32,
