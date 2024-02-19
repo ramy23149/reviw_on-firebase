@@ -3,6 +3,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:market_app/components/Custom_card.dart';
+import 'package:market_app/note/edit.dart';
+import 'package:market_app/note/view.dart';
 
 class Homepage extends StatefulWidget {
   const Homepage({super.key});
@@ -24,8 +26,10 @@ class _HomepageState extends State<Homepage> {
   }
 
   Future<void> getData() async {
-    QuerySnapshot querySnapshot =
-        await FirebaseFirestore.instance.collection('categoris').where('id',isEqualTo: FirebaseAuth.instance.currentUser!.uid).get();
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+        .collection('categoris')
+        .where('id', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+        .get();
     setState(() {
       //data = querySnapshot.docs;
       data.addAll(querySnapshot.docs);
@@ -38,7 +42,7 @@ class _HomepageState extends State<Homepage> {
     return Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          title: const Text('Firebase Install'),
+          title: const Text('HomePage'),
           actions: [
             IconButton(
                 onPressed: () async {
@@ -61,10 +65,16 @@ class _HomepageState extends State<Homepage> {
                             mainAxisExtent: 155),
                     itemBuilder: (context, index) {
                       return CustomCard(
-                        oldSubject: data[index]['subject'],
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => NoteView(
+                                      docId: data[index].id,
+                                        )));
+                          },
                           docId: data[index].id,
                           categoryName: '${data[index]['name']}');
-                  
                     },
                   ),
                   Positioned(

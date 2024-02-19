@@ -1,9 +1,11 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:market_app/components/Custom_card.dart';
 import 'package:market_app/note/add.dart';
+import 'package:market_app/note/edit.dart';
 
 class NoteView extends StatefulWidget {
   const NoteView({super.key, required this.docId});
@@ -41,7 +43,7 @@ class _NoteViewState extends State<NoteView> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('note'),
+          title: const Text('notes'),
           actions: [
             IconButton(
                 onPressed: () async {
@@ -65,7 +67,38 @@ class _NoteViewState extends State<NoteView> {
                                 mainAxisExtent: 155),
                         itemBuilder: (context, index) {
                           return CustomCard(
-                              // oldSubject: data[index]['subject'],
+                              onLongPress: () {
+                                AwesomeDialog(
+                                  context: context,
+                                  dialogType: DialogType.info,
+                                  animType: AnimType.rightSlide,
+                                  title: 'alert',
+                                  desc: 'Are you sure to delete this note?',
+                                  btnCancelOnPress: () {},
+                                  btnOkOnPress: () {
+                                    FirebaseFirestore.instance
+                                        .collection('categoris')
+                                        .doc(widget.docId)
+                                        .collection('note')
+                                        .doc(data[index].id)
+                                        .delete();
+                                    Navigator.pushReplacement(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                NoteView(docId: widget.docId)));
+                                  },
+                                )..show();
+                              },
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => EditNote(
+                                            categoryName: data[index]['note'],
+                                            noteDocId: data[index].id,
+                                            categoryDocId: widget.docId)));
+                              },
                               docId: data[index].id,
                               categoryName: '${data[index]['note']}');
                         },
@@ -90,7 +123,8 @@ class _NoteViewState extends State<NoteView> {
                     ],
                   ),
             onWillPop: () {
-              Navigator.of(context).pushNamed('HomePage');
+              Navigator.pushNamedAndRemoveUntil(
+                  context, 'HomePage', (route) => false);
               return Future.value(false);
             }));
   }

@@ -14,7 +14,6 @@
   class _AddCategoryPageState extends State<AddCategoryPage> {
     GlobalKey<FormState> formKey = GlobalKey<FormState>();
     TextEditingController name = TextEditingController();
-    TextEditingController subject = TextEditingController();
     CollectionReference categoris =
         FirebaseFirestore.instance.collection('categoris');
     bool isLonading = false;
@@ -26,11 +25,11 @@
         setState(() {
           
         });
-          DocumentReference response = await categoris.add(
-              {'name': name.text, 'id': FirebaseAuth.instance.currentUser!.uid,'subject':subject.text});
-          Navigator.of(context).pushNamedAndRemoveUntil(
+         await categoris.add(
+              {'name': name.text, 'id': FirebaseAuth.instance.currentUser!.uid,});
+          Navigator.of(context).pushNamed(
             'HomePage',
-            (route) => false,
+            
           );
         } catch (e) {
           print(e);
@@ -42,7 +41,7 @@
       // TODO: implement dispose
       super.dispose();
       name.dispose();
-      subject.dispose();
+  
     }
     @override
     Widget build(BuildContext context) {
@@ -72,16 +71,7 @@
                   ),const SizedBox(
                     height: 20,
                   ),
-                    CustomTextForm(
-                    lines: 4,
-                    hinttext: 'subject',
-                    mycontroller: subject,
-                    // validator: (value) {
-                    //   if (value == '') {
-                    //     return 'value is required';
-                    //   }
-                    // },
-                  ),
+                  
                   const SizedBox(
                     height: 32,
                   ),
@@ -93,7 +83,7 @@
                     textColor: Colors.white,
                     onPressed: () {
                       addCategory();
-                      name.clear();
+                    
                     },
                     child: const Text('Add'),
                   )
