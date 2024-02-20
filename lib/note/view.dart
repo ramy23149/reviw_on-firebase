@@ -88,7 +88,7 @@ class _NoteViewState extends State<NoteView> {
                                             builder: (context) =>
                                                 NoteView(docId: widget.docId)));
                                   },
-                                )..show();
+                                ).show();
                               },
                               onTap: () {
                                 Navigator.push(

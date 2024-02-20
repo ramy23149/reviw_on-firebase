@@ -3,6 +3,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:market_app/Filtering/Filtering_page.dart';
 import 'package:market_app/add_category/add_category.dart';
  import 'package:market_app/auth/login.dart';
 import 'package:market_app/auth/signup.dart';
@@ -46,8 +47,9 @@ FirebaseAuth.instance
         )
       ),
       debugShowCheckedModeBanner: false,
-      home:  (FirebaseAuth.instance.currentUser!=null && FirebaseAuth.instance.currentUser!.emailVerified) ? Homepage():
-          Login(),
+      // home:  (FirebaseAuth.instance.currentUser!=null && FirebaseAuth.instance.currentUser!.emailVerified) ? Homepage():
+      //     Login(),
+      home: FilteringPage(),
       routes: {
         "signup": (context) => SignUp(),
         "login": (context) => Login(),
