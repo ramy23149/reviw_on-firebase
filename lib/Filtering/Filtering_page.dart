@@ -13,7 +13,7 @@ class _FilteringPageState extends State<FilteringPage> {
   Future<void> initalData() async {
     CollectionReference users = FirebaseFirestore.instance.collection('users');
     QuerySnapshot querySnapshot =
-        await users.orderBy('age', descending: false).startAfter([14]).get();
+        await users.orderBy('age', descending: false).get();
     querySnapshot.docs.forEach((element) {
       data.add(element);
       setState(() {});
@@ -34,6 +34,19 @@ class _FilteringPageState extends State<FilteringPage> {
         backgroundColor: Colors.grey[100],
         title: const Text('Filter'),
       ),
+      floatingActionButton: FloatingActionButton(
+          backgroundColor: Colors.cyan,
+          onPressed: () {
+            CollectionReference users =
+                FirebaseFirestore.instance.collection('users');
+            WriteBatch batch = FirebaseFirestore.instance.batch();
+            DocumentReference doc1 = users.doc('1');
+            DocumentReference doc2 = users.doc('2');
+
+            batch.set(doc1, {'name': 'nagwa', 'age': 49, 'money': 600});
+            batch.set(doc2, {'name': 'hany', 'age': 50, 'money': 400});
+            batch.commit();
+          }),
       body: ListView.builder(
           itemCount: data.length,
           itemBuilder: (context, index) {
@@ -52,14 +65,15 @@ class _FilteringPageState extends State<FilteringPage> {
 
                     if (snapShotData is Map<String, dynamic>) {
                       int money = snapShotData['money'] + 100;
-                      transaction.update(documentReference, {'money':money});
+                      transaction.update(documentReference, {'money': money});
                     }
                   }
-                }).then((value){
-                          Navigator.of(context).pushAndRemoveUntil(
-                    MaterialPageRoute(
-                        builder: (context) => const FilteringPage()),
-                    (route) => false);});
+                }).then((value) {
+                  Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(
+                          builder: (context) => const FilteringPage()),
+                      (route) => false);
+                });
               },
               money: data[index]['money'],
               age: data[index]['age'],
