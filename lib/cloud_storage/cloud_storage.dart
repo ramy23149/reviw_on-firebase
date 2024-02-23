@@ -1,28 +1,27 @@
-import 'dart:io';
+import 'dart:html' as html;
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 
 class CloudStorage extends StatefulWidget {
-  const CloudStorage({super.key});
+  const CloudStorage({Key? key}) : super(key: key);
 
   @override
   State<CloudStorage> createState() => _CloudStorageState();
 }
 
 class _CloudStorageState extends State<CloudStorage> {
-  File? file;
+  html.File? file;
 
   Future<void> pickImage() async {
-    final ImagePicker picker = ImagePicker();
+    final html.FileUploadInputElement input = html.FileUploadInputElement();
+    input.click();
 
-    final XFile? photo = await picker.pickImage(source: ImageSource.gallery);
-    file = File(photo!.path);
-    if (photo != null) {
-      setState(() {
-        file = File(photo.path);
-      });
-    }
-    
+    input.onChange.listen((event) {
+      if (input.files!.isNotEmpty) {
+        setState(() {
+          file = input.files![0];
+        });
+      }
+    });
   }
 
   @override
@@ -39,22 +38,19 @@ class _CloudStorageState extends State<CloudStorage> {
                 pickImage();
               },
               child: Text(
-                'open the camera',
+                'Open the gallery',
                 style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
               ),
             ),
-             if (file != null)
-              Image.memory(
-                file!.readAsBytesSync(),
+            if (file != null)
+              Image.network(
+                html.Url.createObjectUrlFromBlob(file!),
                 height: 100,
                 width: 100,
               ),
-    
           ],
         ),
       ),
     );
   }
 }
-
-
