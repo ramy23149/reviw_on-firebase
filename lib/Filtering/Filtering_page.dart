@@ -36,7 +36,7 @@ class _FilteringPageState extends State<FilteringPage> {
           stream: userCondation,
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(
+              return const Center(
                 child: CircularProgressIndicator(),
               );
             } else if (snapshot.hasError) {

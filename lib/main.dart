@@ -1,12 +1,11 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:market_app/Filtering/Filtering_page.dart';
 import 'package:market_app/add_category/add_category.dart';
  import 'package:market_app/auth/login.dart';
 import 'package:market_app/auth/signup.dart';
+import 'package:market_app/cloud_storage/cloud_storage.dart';
 import 'package:market_app/home_page.dart';
 import 'firebase_options.dart';
 void main() async {
@@ -49,7 +48,7 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       // home:  (FirebaseAuth.instance.currentUser!=null && FirebaseAuth.instance.currentUser!.emailVerified) ? Homepage():
       //     Login(),
-      home: FilteringPage(),
+      home: CloudStorage(),
       routes: {
         "signup": (context) => SignUp(),
         "login": (context) => Login(),

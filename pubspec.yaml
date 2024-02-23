@@ -33,8 +33,10 @@ dependencies:
   cupertino_icons: ^1.0.2
   firebase_auth: ^4.17.4
   firebase_core: ^2.25.4
+  firebase_storage: ^11.6.6
   flutter:
     sdk: flutter
+  image_picker: ^1.0.7
   modal_progress_hud_nsn: ^0.5.1
 
 dev_dependencies:
