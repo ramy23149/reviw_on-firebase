@@ -7,6 +7,7 @@ import 'package:market_app/add_category/add_category.dart';
 import 'package:market_app/auth/signup.dart';
 import 'package:market_app/cloud_storage/cloud_storage.dart';
 import 'package:market_app/home_page.dart';
+import 'package:market_app/notifecations/notifecation.dart';
 import 'firebase_options.dart';
 void main() async {
 await Firebase.initializeApp(
@@ -48,7 +49,7 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       // home:  (FirebaseAuth.instance.currentUser!=null && FirebaseAuth.instance.currentUser!.emailVerified) ? Homepage():
       //     Login(),
-      home: CloudStorage(),
+      home: Notfi(),
       routes: {
         "signup": (context) => SignUp(),
         "login": (context) => Login(),
