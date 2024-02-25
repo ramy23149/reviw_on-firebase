@@ -37,6 +37,7 @@ dependencies:
   firebase_storage: ^11.6.6
   flutter:
     sdk: flutter
+  http: ^1.2.0
   image_picker: ^1.0.7
   modal_progress_hud_nsn: ^0.5.1
   path: ^1.8.3

@@ -1,18 +1,19 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:market_app/add_category/add_category.dart';
- import 'package:market_app/auth/login.dart';
+import 'package:market_app/auth/login.dart';
 import 'package:market_app/auth/signup.dart';
-import 'package:market_app/cloud_storage/cloud_storage.dart';
 import 'package:market_app/home_page.dart';
 import 'package:market_app/notifecations/notifecation.dart';
 import 'firebase_options.dart';
+
 void main() async {
-await Firebase.initializeApp(
+  await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
-);
+  );
   runApp(MyApp());
 }
 
@@ -24,6 +25,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+
 //   @override
 //   void initState() {
 // FirebaseAuth.instance
@@ -41,11 +43,13 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        appBarTheme: AppBarTheme(backgroundColor: Colors.grey[50],
-        titleTextStyle: TextStyle(fontSize: 32,fontWeight: FontWeight.bold,color: Colors.orange),
-       iconTheme: IconThemeData(color: Colors.orange,size: 32)
-        )
-      ),
+          appBarTheme: AppBarTheme(
+              backgroundColor: Colors.grey[50],
+              titleTextStyle: TextStyle(
+                  fontSize: 32,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.orange),
+              iconTheme: IconThemeData(color: Colors.orange, size: 32))),
       debugShowCheckedModeBanner: false,
       // home:  (FirebaseAuth.instance.currentUser!=null && FirebaseAuth.instance.currentUser!.emailVerified) ? Homepage():
       //     Login(),
@@ -54,7 +58,7 @@ class _MyAppState extends State<MyApp> {
         "signup": (context) => SignUp(),
         "login": (context) => Login(),
         "HomePage": (context) => Homepage(),
-        'AddCategoryPage':(context) => AddCategoryPage()
+        'AddCategoryPage': (context) => AddCategoryPage()
       },
     );
   }
